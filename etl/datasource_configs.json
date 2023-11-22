@@ -1,0 +1,15 @@
+{
+  "db_legacy": {
+    "url": "https://indengsvc-1-u8804147.deta.app",
+    "username": "admin",
+    "password": "password",
+    "endpoint_employees": "/employees",
+    "endpoint_employee_details": "/{token}"
+  },
+  "db_employees": {
+    "database": "jbeambxm",
+    "user": "jbeambxm",
+    "password": "Foks1UfQxslv_cPePwwd2dJ30WnYkrvw",
+    "host": "cornelius.db.elephantsql.com"
+  }
+}
