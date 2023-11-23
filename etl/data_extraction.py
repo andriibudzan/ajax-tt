@@ -3,7 +3,6 @@ import json
 import zipfile
 
 import requests
-import psycopg2
 import pandas as pd
 
 from requests.auth import HTTPBasicAuth
@@ -13,10 +12,9 @@ with open('./etl/datasource_configs.json') as f:
     config = json.load(f)
 
 db_legacy = config['db_legacy']
-# db_employees = config['db_employees']
 
 if __name__ == '__main__':
-    # downloading and unzipping data from bronze db
+    # downloading and unzipping data from legacy db
     url = db_legacy['url']
     endpoint_employees = f"{url}{db_legacy['endpoint_employees']}"
     endpoint_employee_details = f"{endpoint_employees}{db_legacy['endpoint_employee_details']}"
@@ -27,7 +25,7 @@ if __name__ == '__main__':
     # downloading data archive
     res = requests.get(url=endpoint_employees, auth=auth)
     if res.status_code == 200:
-        print('Connected to bronze db')
+        print('Connected to legacy db')
         os.makedirs(f'{datastorage}/bronze', exist_ok=True)
         with open(f'{legacy_data_path}/data.zip', 'wb') as f:
             f.write(res.content)
@@ -61,6 +59,6 @@ if __name__ == '__main__':
         .join(df_tokens.set_index('id'))
         .reset_index()
     )
-    os.makedirs(f'{datastorage}/raw/', exist_ok=True)
+    os.makedirs(f'{datastorage}/silver/', exist_ok=True)
     df_users.to_csv(f'{datastorage}/silver/employees.csv', index=False)
     print(df_users.head(5))
