@@ -1,6 +1,6 @@
 pandas
 requests
-psycopg2
+psycopg2-binary
 jsonify
 Flask
 Flask-HTTPAuth
