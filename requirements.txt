@@ -1,0 +1,7 @@
+pandas
+requests
+psycopg2
+jsonify
+Flask
+Flask-HTTPAuth
+openpyxl
