@@ -1,8 +1,5 @@
 {
   "db_legacy": {
-    "url": "https://indengsvc-1-u8804147.deta.app",
-    "username": "admin",
-    "password": "password",
     "endpoint_employees": "/employees",
     "endpoint_employee_details": "/{token}"
   },
