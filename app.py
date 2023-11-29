@@ -2,14 +2,21 @@ import json
 
 from flask import Flask, jsonify
 from flask_httpauth import HTTPTokenAuth
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
 
 import pandas as pd
 
 app = Flask(__name__)
-auth = HTTPTokenAuth(scheme='Bearer')
+auth = HTTPBasicAuth()
 
 # Sample Bearer token for demonstration purposes
 token = 'mytoken1'
+
+users = {
+    "user1": generate_password_hash("Password1"),
+    "user2": generate_password_hash("password2")
+    }
 
 
 def load_data():
@@ -21,10 +28,12 @@ def load_data():
     )
     return df
 
+
 # Verify Bearer token
-@auth.verify_token
-def verify_token(given_token):
-    return given_token == token
+@auth.verify_password
+def verify_password(username, password):
+    if username in users and check_password_hash(users.get(username), password):
+        return username
 
 
 # Endpoint to get all users (requires Bearer token authentication)
@@ -45,7 +54,7 @@ def get_user(user_id):
                 df[df['id'] == user_id].to_dict(orient='records'),
                 ensure_ascii=False), 200
     else:
-        return jsonify({'error': 'User not found'}), 404
+        return jsonify({'error': 'Employee not found'}), 404
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-### Intallation
+### How to run API-service
 
 1. Using your preferred package management tool, create a new virtual env. For example, using `conda`:
 
@@ -19,15 +19,16 @@
     ```
    
 4. After service start, open additional terminal tab an use ```curl``` to test the service.
-   Service uses Bearer token authentication. Currently, token is hardcoded, so use `mytoken1` as a token in your 
-   requests. For example:
+   Service uses Basic Authentication. Please, use listed credentials for testing:
+    - login: `user1`, password: `Password1`
+    - login: `user2`, password: `password2`
 
     ```bash
    # will return all list of all employees with all details included.
-    curl -X 'GET' 'http://127.0.0.1:5000/users' -H 'accept: application/json' -H 'Authorization: Bearer mytoken1'
+    curl -X 'GET' 'http://127.0.0.1:5000/users' -H 'accept: application/json' -u login:password
       
    # will return data for user with id=1000 (CEO, in this case) and all details about this employee
-    curl -X 'GET' 'http://127.0.0.1:5000/users/1000' -H 'accept: application/json' -H 'Authorization: Bearer mytoken1'
+    curl -X 'GET' 'http://127.0.0.1:5000/users/1000' -H 'accept: application/json' -u login:password
     ```
 
 5. To stop service press `Ctrl+C` in terminal where service is running.
