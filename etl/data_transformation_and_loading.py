@@ -4,10 +4,13 @@ import json
 import psycopg2
 import pandas as pd
 
-with open('./etl/datasource_configs.json') as f:
-    config = json.load(f)
 
-db_employees = config['db_employees']
+db_employees = {
+    "database": os.getenv("DBE_DATABASE"),
+    "user": os.getenv("DBE_USER"),
+    "password": os.getenv("DBE_PASSWORD"),
+    "host": os.getenv("DBE_HOST")
+    }
 
 query = """
 select e.id as id, reports, position, hired, salary, team_id, team_name from employees e

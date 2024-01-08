@@ -15,10 +15,10 @@ db_legacy = config['db_legacy']
 
 if __name__ == '__main__':
     # downloading and unzipping data from legacy db
-    url = db_legacy['url']
+    url = os.getenv('DBL_URL')
     endpoint_employees = f"{url}{db_legacy['endpoint_employees']}"
     endpoint_employee_details = f"{endpoint_employees}{db_legacy['endpoint_employee_details']}"
-    auth = HTTPBasicAuth(db_legacy['username'], db_legacy['password'])
+    auth = HTTPBasicAuth(os.getenv("DBL_USERNAME"), os.getenv("DBL_PASSWORD"))
     datastorage = './data'
     legacy_data_path = f'{datastorage}/bronze'
 
